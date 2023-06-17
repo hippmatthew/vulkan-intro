@@ -1,7 +1,7 @@
 include .env
 
 # Compiler Configuration
-CC = g++
+CC := g++
 CFLAGS_DEFAULT := -O2 -std=c++17 `pkg-config --cflags glfw3`
 INCLUDE := -I$(VULKAN_SDK_DIR)/include -I$(BREW_DIR)/include -I$(LOCAL_SRC)/include
 LDFLAGS := -L$(VULKAN_SDK_DIR)/lib -lvulkan `pkg-config --static --libs glfw3`
@@ -13,7 +13,7 @@ OBJS_DEBUG := $(patsubst $(LOCAL_SRC)/%.cpp, $(LOCAL_OBJ)/%.o.debug, $(SRCS))
 BINS := $(LOCAL_BIN)/graphics
 
 # Shader Information
-SC = glslc
+SC := glslc
 VERT_SHDRS := $(wildcard $(LOCAL_VERT)/*.vert)
 FRAG_SHDRS := $(wildcard $(LOCAL_FRAG)/*.frag)
 SPVS := $(patsubst $(LOCAL_VERT)/%.vert, $(LOCAL_SPV)/%.vert.spv, $(VERT_SHDRS)) $(patsubst $(LOCAL_FRAG)/%.frag, $(LOCAL_SPV)/%.frag.spv, $(FRAG_SHDRS))
