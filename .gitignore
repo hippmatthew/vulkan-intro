@@ -1,10 +1,10 @@
-# Individual Files
-.DS_STORE
-.env
-
 # Directories
 bin
 obj
 spv
 .vscode
+
+# Individual Files
+.DS_STORE
+.env
 
