@@ -26,29 +26,31 @@ struct SwapChainSupportDetails {
 };
 
 class HelloTriangleApplication
-{
+{   
     public:
         ~HelloTriangleApplication();
         
         void run();
+        void setFramebufferResizeTrue();
 
     private:
         const uint32_t WIDTH = 800;
         const uint32_t HEIGHT = 600;
-        GLFWwindow * window;
-
+        const int maxFramesInFlight = 2;
         const std::vector<const char *> validationLayers = { "VK_LAYER_KHRONOS_validation" };
         const std::vector<const char *> deviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
-
         const std::string vertPath = "spv/shader.vert.spv";
         const std::string fragPath = "spv/shader.frag.spv";
         
+        uint32_t currentFrame = 0;
+
         #ifdef NDEBUG
             const bool enableValidationLayers = false;
         #else
             const bool enableValidationLayers = true;
         #endif
 
+        GLFWwindow * window;
         VkSurfaceKHR surface;
 
         VkQueue graphicsQueue;
@@ -70,11 +72,13 @@ class HelloTriangleApplication
         VkPipeline graphicsPipeline;
         
         VkCommandPool commandPool;
-        VkCommandBuffer commandBuffer;
+        std::vector<VkCommandBuffer> commandBuffers;
         
-        VkSemaphore imageAvailableSemaphore;
-        VkSemaphore renderFinishedSemaphore;
-        VkFence inFlightFence;
+        std::vector<VkSemaphore> imageAvailableSemaphores;
+        std::vector<VkSemaphore> renderFinishedSemaphores;
+        std::vector<VkFence> inFlightFences;
+        
+        bool framebufferResized = false;
         
         void initWindow();
         void initVulkan();
@@ -110,11 +114,14 @@ class HelloTriangleApplication
         void createFramebuffers();
         
         void createCommandPool();
-        void createCommandBuffer();
+        void createCommandBuffers();
         void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex);
 
         void drawFrame();
         void createSyncObjects();
+
+        void recreateSwapChain();
+        void cleanSwapChain();
 };      
 
 #endif /* triangleapp_hpp */
