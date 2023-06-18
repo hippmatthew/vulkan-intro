@@ -51,6 +51,7 @@ class HelloTriangleApplication
 
         VkSurfaceKHR surface;
 
+        VkQueue graphicsQueue;
         VkQueue presentQueue;
 
         VkInstance instance;
@@ -62,11 +63,19 @@ class HelloTriangleApplication
         std::vector<VkImageView> swapChainImageViews;
         VkFormat swapChainImageFormat;
         VkExtent2D swapChainExtent;
+        std::vector<VkFramebuffer> swapChainFrameBuffers;
 
         VkRenderPass renderPass;
         VkPipelineLayout pipelineLayout;
         VkPipeline graphicsPipeline;
-
+        
+        VkCommandPool commandPool;
+        VkCommandBuffer commandBuffer;
+        
+        VkSemaphore imageAvailableSemaphore;
+        VkSemaphore renderFinishedSemaphore;
+        VkFence inFlightFence;
+        
         void initWindow();
         void initVulkan();
         void mainLoop();
@@ -98,6 +107,14 @@ class HelloTriangleApplication
         void createImageViews();
 
         void createRenderPass();
-};
+        void createFramebuffers();
+        
+        void createCommandPool();
+        void createCommandBuffer();
+        void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex);
+
+        void drawFrame();
+        void createSyncObjects();
+};      
 
 #endif /* triangleapp_hpp */

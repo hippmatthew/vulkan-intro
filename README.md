@@ -1,5 +1,7 @@
 Ideas for future improvement:
 
+1. Separate into different objects
+
 Window Object:
 
 - GLFW Window
@@ -9,18 +11,27 @@ Device Object:
 
 - Physical Device
 - Logical Device
+- Queue Families
 
-App Object:
+Pipeline Object:
 
-- Instance
+- SwapChain
+- Images
+- Image Views
+- RenderPass
+- Pipeline
+- Framebuffers
+
+Engine Object:
+
+- Vulkan Instance
 - Validation layers
+- has a: Window, Device, and Pipeline
+- Command Buffers
+- Sync Objects
+- Frame Drawing
+- Main engine loop
 
-How this works:
+2. Swap c header for c++ header and update code
 
-1. Creates an instance of vulkan
-
-- define a struct with the application info
-- get the required GLFW extensions
-
-2. If in debug mode, enables the validation layers
-3.
+3. Format and improve shell output

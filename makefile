@@ -48,3 +48,5 @@ clean:
 
 clean_debug:
 	rm -r $(LOCAL_BIN)/*.debug $(LOCAL_OBJ)/*.debug $(LOCAL_SPV)/*
+
+manual_compile_shaders: $(SPVS)
